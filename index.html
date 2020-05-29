@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Websocket chat</title>
+  </head>
+  <body>
+<input id="input" type="text" />
+<button onclick="send()">Send</button>
+<pre id="output"></pre>
+<script>
+    var input = document.getElementById("input");
+    var output = document.getElementById("output");
+    //var socket = new WebSocket("ws://gfp-game-weba01:8080/ws");
+    var socket = new WebSocket("ws://localhost:8080/ws");
+
+    socket.onopen = function () {
+        output.innerHTML += "Status: Connected\n";
+    };
+
+    socket.onmessage = function (e) {
+        output.innerHTML += "Server: " + e.data + "\n";
+    };
+
+    socket.onclose = function(e) {
+    console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+  };
+
+  socket.onerror = function(err) {
+    console.error('Socket encountered error: ', err.message, 'Closing socket');
+    socket.close();
+  };
+
+    function send() {
+        socket.send(input.value);
+        input.value = "";
+    }
+</script>
+</body>
+</html>
