@@ -15,7 +15,7 @@ const (
 	writeWait = 10 * time.Second
 
 	// Maximum message size allowed from peer.
-	maxMessageSize = 8192
+	maxMessageSize = 4096
 
 	// Time allowed to read the next pong message from the peer.
 	pongWait = 10 * time.Second
